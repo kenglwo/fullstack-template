@@ -1,0 +1,5 @@
+FROM postgres:17.2
+
+WORKDIR /db
+
+EXPOSE 5432

@@ -1,0 +1,58 @@
+services:
+  frontend:
+    container_name: ${CONTAINER_NAME_FRONTEND}
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+      - hoge:/frontend/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    # command: >
+    #   bash -c "yarn install &&
+    #     yarn build"
+    # command: ash -c "yarn start"
+
+  backend:
+    container_name: ${CONTAINER_NAME_BACKEND}
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    volumes:
+      - ./backend:/backend
+    env_file:
+      - .env
+    tty: true
+    depends_on:
+      - db
+    stdin_open: true
+    # command: >
+    #   bash -c "rails db:migrate &&
+    #     rm -f tmp/pids/server.pid &&
+    #     rails s -p 3002 -b '0.0.0.0'"
+  db:
+    container_name: ${CONTAINER_NAME_DB}
+    build: ./db
+    volumes:
+      - sample_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGPORT: ${DB_PORT}
+    ports:
+      - 5432:${DB_PORT}
+    tty: true
+    stdin_open: true
+
+volumes:
+  hoge:
+  sample_db:
