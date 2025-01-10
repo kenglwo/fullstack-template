@@ -1,10 +1,12 @@
 # settings for the frontend
 SYSTEM_NAME_FRONTEND=sample-frontend
 CONTAINER_NAME_FRONTEND=sample-frontend
+PORT_FRONTEND=3000
 
 # settings for the backend
 SYSTEM_NAME_BACKEND=sample-backend
 CONTAINER_NAME_BACKEND=sample-backend
+PORT_BACKEND=3001
 CORS_ORIGIN=http://localhost:3000
 
 # settings for the db

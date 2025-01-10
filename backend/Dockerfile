@@ -10,5 +10,5 @@ RUN bundle install
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
-EXPOSE 3001
+EXPOSE ${PORT_BACKEND}
 ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
